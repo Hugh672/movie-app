@@ -77,4 +77,18 @@ public class MovieDBRepository implements IMovieRepository {
 		return "{\"message\":\"movie does not exist\"}";
 	
 	}
+	
+	@Transactional(REQUIRED)
+	@Override
+	public String updateMovie(String movieAsJSON) {
+		Movie updatedMovie=util.getObjectForJSON(movieAsJSON, Movie.class);
+		Movie oldMovie =findMovie(updatedMovie.getId());
+		if (oldMovie!=null) {
+			manager.merge(updatedMovie);
+			return  "{\"message\":\"movie has been updated\"}";
+		}
+		else {
+			return "{\"message\":\"movie does not exist\"}";
+		}
+	}
 }

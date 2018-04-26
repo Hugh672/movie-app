@@ -47,5 +47,12 @@ public class MovieEndPoint {
 		return service.deleteAMovie(id);
 	}
 		
+	@POST
+	@Path("/json/")
+	@Produces({ "application/json" })
+	@Consumes({ "application/json" })
+	public String updateMovie(String movieAsJSON) {
+		return service.updateMovie(movieAsJSON);
+	}
 	
 }
